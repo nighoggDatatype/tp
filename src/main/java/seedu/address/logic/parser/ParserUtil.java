@@ -121,11 +121,11 @@ public class ParserUtil {
      */
     public static Car parseCar(String car) throws ParseException {
         requireNonNull(car);
-        String trimmedAddress = car.trim();
-        if (!Car.isValidCar(trimmedAddress)) {
+        String trimmedCar = car.trim();
+        if (!Car.isValidCar(trimmedCar)) {
             throw new ParseException(Car.MESSAGE_CONSTRAINTS);
         }
-        return new Car(trimmedAddress);
+        return new Car(trimmedCar);
     }
 
     /**
