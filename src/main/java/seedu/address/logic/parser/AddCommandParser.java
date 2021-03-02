@@ -9,17 +9,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COE_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Car;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,8 +44,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Car car = ParserUtil.parseCar(argMultimap.getValue(PREFIX_CAR).get());
+        Optional<CoeExpiry> expiry = ParserUtil.parseCoeExpiry(argMultimap.getValue(PREFIX_COE_EXPIRY));
 
-        Person person = new Person(name, phone, email, address, car, tagList);
+        Person person = new Person(name, phone, email, address, car, expiry, tagList);
 
         return new AddCommand(person);
     }

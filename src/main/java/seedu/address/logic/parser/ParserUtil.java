@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -11,6 +12,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Car;
+import seedu.address.model.person.CoeExpiry;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -124,6 +126,23 @@ public class ParserUtil {
             throw new ParseException(Car.MESSAGE_CONSTRAINTS);
         }
         return new Car(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String coeExpiry} into a {@code CoeExpiry}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code car} is invalid.
+     */
+    public static Optional<CoeExpiry> parseCoeExpiry(Optional<String> coeExpiry) throws ParseException {
+        if (coeExpiry.isEmpty()) {
+            return Optional.empty();
+        }
+        String trimmedCoeExpiry = coeExpiry.get().trim();
+        if (!CoeExpiry.isValidCoeExpiry(trimmedCoeExpiry)) {
+            throw new ParseException(Car.MESSAGE_CONSTRAINTS);
+        }
+        return Optional.of(new CoeExpiry(trimmedCoeExpiry));
     }
 
     /**
