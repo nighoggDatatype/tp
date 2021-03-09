@@ -2,7 +2,11 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
@@ -20,20 +24,21 @@ public class Person {
     // Data fields
     private final Address address;
     private final Car car;
-    private final Optional<CoeExpiry> coeExpiry;
+    private final Optional<CoeExpiry> optionalCoeExpiry;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Car car, Optional<CoeExpiry> coeExpiry, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, car, coeExpiry, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Car car,
+                  Optional<CoeExpiry> optionalCoeExpiry, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, car, optionalCoeExpiry, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.car = car;
-        this.coeExpiry = coeExpiry;
+        this.optionalCoeExpiry = optionalCoeExpiry;
         this.tags.addAll(tags);
     }
 
@@ -57,8 +62,8 @@ public class Person {
         return car;
     }
 
-    public Optional<CoeExpiry> getCoeExpiry() {
-        return coeExpiry;
+    public Optional<CoeExpiry> getOptionalCoeExpiry() {
+        return optionalCoeExpiry;
     }
 
     /**
