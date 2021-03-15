@@ -1,9 +1,12 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Car;
+import seedu.address.model.person.CoeExpiry;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -20,11 +23,14 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_CAR = "Honda Civic";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Car car;
+    private Optional<CoeExpiry> coeExpiryOptional;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +41,8 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        car = new Car(DEFAULT_CAR);
+        coeExpiryOptional = Optional.empty();
         tags = new HashSet<>();
     }
 
@@ -46,6 +54,8 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        car = personToCopy.getCar();
+        coeExpiryOptional = personToCopy.getOptionalCoeExpiry();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -89,8 +99,28 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code car} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCar(String car) {
+        this.car = new Car(car);
+        return this;
+    }
+
+    /**
+     * Sets the {@code coeExpiry} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCoeExpiry(String coeExpiry) {
+        if (coeExpiry.isBlank()) {
+            this.coeExpiryOptional = Optional.empty();
+        } else {
+            this.coeExpiryOptional = Optional.of(new CoeExpiry(coeExpiry));
+        }
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, car, coeExpiryOptional, tags);
     }
 
 }
